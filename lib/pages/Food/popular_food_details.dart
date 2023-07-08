@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
+import 'package:food_delivery_app/widgets/expandable_text_widget.dart';
 import 'package:food_delivery_app/widgets/food_data_column.dart';
 import '../../widgets/big_text.dart';
 
@@ -17,6 +18,7 @@ class PopularFoodDetails extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          // background Image
           Positioned(
               left: 0,
               right: 0,
@@ -29,6 +31,7 @@ class PopularFoodDetails extends StatelessWidget {
                       image: AssetImage('assets/images/food0.png')),
                 ),
               )),
+          // Icon Widgets
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
@@ -41,6 +44,7 @@ class PopularFoodDetails extends StatelessWidget {
               ],
             )
           ),
+          // introduction of Food
           Positioned(
             left: 0,
             right: 0,
@@ -64,7 +68,16 @@ class PopularFoodDetails extends StatelessWidget {
                 children: [
                   FoodDataColumn(text: 'Chinese Side',size: 26),
                   SizedBox(height: Dimensions.height20,),
-                  BigText(text: 'Introduce')
+                  BigText(text: 'Introduce'),
+                  SizedBox(height: Dimensions.height20,),
+                  const Expanded(
+                     child: SingleChildScrollView(
+                       physics: BouncingScrollPhysics(),
+                       child: ExpandableTextWidget(
+                           text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+                       ),
+                     ),
+                   )
                 ],
               ),
             ),
@@ -72,8 +85,8 @@ class PopularFoodDetails extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 120,
-        padding: EdgeInsets.only(top: Dimensions.height20,left: Dimensions.width20,right: Dimensions.width20),
+        height: Dimensions.bottomHeightBar,
+        padding: EdgeInsets.only(top: Dimensions.height10,left: Dimensions.width20,right: Dimensions.width20),
         decoration: BoxDecoration(
           color: AppColors.buttonBackgroundColor,
           borderRadius: BorderRadius.only(
