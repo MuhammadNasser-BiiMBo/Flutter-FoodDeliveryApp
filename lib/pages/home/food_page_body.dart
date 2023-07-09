@@ -142,20 +142,25 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             BigText(text: 'Nutritious Fruit meal in China'),
                             SmallText(text: 'With chinese characteristics'),
                             const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                IconAndText(
-                                    icon: Icons.circle,
-                                    text: 'Normal',
-                                    iconColor: AppColors.iconColor1),
-                                IconAndText(
-                                    icon: Icons.location_pin,
-                                    text: '1.7km',
-                                    iconColor: AppColors.mainColor),
-                                IconAndText(
-                                    icon: Icons.access_time_outlined,
-                                    text: '32min',
-                                    iconColor: AppColors.iconColor2),
+                                Expanded(
+                                  child: IconAndText(
+                                      icon: Icons.circle,
+                                      text: 'Normal',
+                                      iconColor: AppColors.iconColor1),
+                                ),
+                                Expanded(
+                                  child: IconAndText(
+                                      icon: Icons.location_pin,
+                                      text: '1.7km',
+                                      iconColor: AppColors.mainColor),
+                                ),
+                                Expanded(
+                                  child: IconAndText(
+                                      icon: Icons.access_time_outlined,
+                                      text: '32min',
+                                      iconColor: AppColors.iconColor2),
+                                ),
                               ],
                             ),
                           ],

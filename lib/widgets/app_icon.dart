@@ -19,17 +19,22 @@ class AppIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: backgroundSize==0?Dimensions.iconSize50:backgroundSize,
-      height: backgroundSize==0?Dimensions.iconSize50:backgroundSize,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      width: backgroundSize==0?Dimensions.iconSize50:Dimensions.iconSize50*backgroundSize/50,
+      height: backgroundSize==0?Dimensions.iconSize50:Dimensions.iconSize50*backgroundSize/50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(backgroundSize==0?Dimensions.iconSize50:backgroundSize/2),
+        borderRadius: BorderRadius.circular(backgroundSize==0?Dimensions.iconSize50/2:Dimensions.iconSize50*backgroundSize/100),
         color: backgroundColor,
       ),
-      child: Center(
-        child: Icon(
-          icon,
-          color: iconColor,
-          size: iconSize==0?Dimensions.iconSize20:iconSize,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(backgroundSize==0?Dimensions.iconSize50/2:Dimensions.iconSize50*backgroundSize/100),
+        onTap: (){},
+        child: Center(
+          child: Icon(
+            icon,
+            color: iconColor,
+            size: iconSize==0?Dimensions.iconSize20:Dimensions.iconSize20*iconSize/20,
+          ),
         ),
       ),
     );

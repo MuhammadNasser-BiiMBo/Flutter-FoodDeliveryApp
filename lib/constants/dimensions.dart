@@ -50,4 +50,10 @@ class Dimensions{
 // Bottom Height Bar Sizes
   static double bottomHeightBar = screenHeight/7.23;
 
+// Recommended Food details Dimensions
+  static double toolBarHeight = screenHeight/12.4;
+  static double imgExpandedHeight = screenHeight/2.48;
+
+
+
 }

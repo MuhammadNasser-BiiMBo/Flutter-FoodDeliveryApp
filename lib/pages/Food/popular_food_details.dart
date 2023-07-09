@@ -27,7 +27,7 @@ class PopularFoodDetails extends StatelessWidget {
                 height: Dimensions.popularFoodImgSize,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                       image: AssetImage('assets/images/food0.png')),
                 ),
               )),
@@ -70,11 +70,12 @@ class PopularFoodDetails extends StatelessWidget {
                   SizedBox(height: Dimensions.height20,),
                   BigText(text: 'Introduce'),
                   SizedBox(height: Dimensions.height20,),
-                  const Expanded(
+                   Expanded(
                      child: SingleChildScrollView(
-                       physics: BouncingScrollPhysics(),
+                       physics: const BouncingScrollPhysics(),
                        child: ExpandableTextWidget(
-                           text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
+                           text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+                         lineHeight: 1.4,
                        ),
                      ),
                    )

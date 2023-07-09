@@ -6,7 +6,8 @@ import '../constants/dimensions.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
   final String text;
-  const ExpandableTextWidget({super.key, required this.text});
+  double lineHeight;
+   ExpandableTextWidget({super.key, required this.text,this.lineHeight=1});
 
   @override
   State<ExpandableTextWidget> createState() => _ExpandableTextWidgetState();
@@ -35,32 +36,36 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: secondHalf.isEmpty ? SmallText(text: firstHalf,size: 16,color: AppColors.paraColor,) : Column(
+      child: secondHalf.isEmpty ? SmallText(text: firstHalf,size: 16,color: AppColors.paraColor,height: widget.lineHeight,) : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SmallText(
                   text: hiddenText ? ('$firstHalf...') : (firstHalf + secondHalf),
                   size: 16,
                   color: AppColors.paraColor,
+                  height: widget.lineHeight,
                 ),
                 InkWell(
                   onTap: () {
                     setState(() {
                       hiddenText = !hiddenText;
-                      print(hiddenText);
                     });
                   },
-                  child: Row(
-                    children: [
-                      SmallText(
-                        text: hiddenText?'Show more':'Show less',
-                        color: AppColors.mainColor,
-                      ),
-                       Icon(
-                        hiddenText?
-                        Icons.arrow_drop_down:Icons.arrow_drop_up,
-                        color: AppColors.mainColor,
-                      )
-                    ],
+                  child: IntrinsicWidth(
+                    child: Row(
+                      children: [
+                        SmallText(
+                          text: hiddenText?'Show more':'Show less',
+                          color: AppColors.mainColor,
+                          height: widget.lineHeight,
+                        ),
+                         Icon(
+                          hiddenText?
+                          Icons.arrow_drop_down:Icons.arrow_drop_up,
+                          color: AppColors.mainColor,
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

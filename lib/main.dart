@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/Food/popular_food_details.dart';
+import 'package:food_delivery_app/pages/Food/recommended_food_details.dart';
+import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     return  GetMaterialApp(
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
-      home:  const PopularFoodDetails(),
+      home:   const MainFoodPage(),
     );
   }
 }
