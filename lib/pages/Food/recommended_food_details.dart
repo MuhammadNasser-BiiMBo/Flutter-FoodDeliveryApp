@@ -97,7 +97,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                   ),
-                  child:  const Icon(Icons.favorite,color: AppColors.mainColor,),
+                  child:  const Icon(Icons.favorite,color: AppColors.mainColor,size: 25,),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: Dimensions.width20,vertical: Dimensions.height20),
