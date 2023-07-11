@@ -26,15 +26,11 @@ class AppIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(backgroundSize==0?Dimensions.iconSize50/2:Dimensions.iconSize50*backgroundSize/100),
         color: backgroundColor,
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(backgroundSize==0?Dimensions.iconSize50/2:Dimensions.iconSize50*backgroundSize/100),
-        onTap: (){},
-        child: Center(
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: iconSize==0?Dimensions.iconSize20:Dimensions.iconSize20*iconSize/20,
-          ),
+      child: Center(
+        child: Icon(
+          icon,
+          color: iconColor,
+          size: iconSize==0?Dimensions.iconSize20:Dimensions.iconSize20*iconSize/20,
         ),
       ),
     );
