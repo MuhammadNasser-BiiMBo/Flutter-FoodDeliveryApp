@@ -11,8 +11,7 @@ import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -195,6 +194,54 @@ class CartPage extends StatelessWidget {
             ),
           ],
         ),
+        bottomNavigationBar: Container(
+          height: Dimensions.bottomHeightBar,
+          padding: EdgeInsets.only(
+              top: Dimensions.height10,
+              left: Dimensions.width20,
+              right: Dimensions.width20),
+          decoration: BoxDecoration(
+              color: AppColors.buttonBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radius20 * 2),
+                topRight: Radius.circular(Dimensions.radius20 * 2),
+              )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.width20,
+                    vertical: Dimensions.height20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                ),
+                child: Row(
+                  children: [
+                    BigText(text: 'Total : \$ ${cartController.totalAmount}'),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: (){},
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimensions.width20,
+                      vertical: Dimensions.height20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                      color: AppColors.mainColor),
+                  child: BigText(
+                    text: 'Check out',
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+
       );
     });
   }
