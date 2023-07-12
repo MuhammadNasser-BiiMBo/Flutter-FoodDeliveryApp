@@ -15,7 +15,7 @@ class IconAndText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(icon,color: iconColor,),
         SmallText(text: text,)

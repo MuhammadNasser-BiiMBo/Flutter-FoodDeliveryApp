@@ -22,7 +22,6 @@ class PopularFoodDetails extends StatelessWidget {
     Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
 
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -35,7 +34,7 @@ class PopularFoodDetails extends StatelessWidget {
                 height: Dimensions.popularFoodImgSize,
                 decoration:  BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                       image: NetworkImage(AppConstants.BASEURL+AppConstants.UPLOAD_URL+product.img!)),
                 ),
               )),
@@ -53,18 +52,46 @@ class PopularFoodDetails extends StatelessWidget {
                       iconSize: Dimensions.iconSize20,
                     ),
                     onTap: (){
-                      Get.toNamed(RouteHelper.initial);
+                      Get.toNamed(RouteHelper.getInitial());
                     },
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: AppIcon(
-                      icon: Icons.shopping_cart_outlined,
-                      iconSize: Dimensions.iconSize20,
-                    ),
+                  GetBuilder<PopularProductController>(
+                    builder: (popularProduct){
+                      return GestureDetector(
+                        onTap: () {
+                          if(popularProduct.totalItems>0) {
+                            Get.toNamed(RouteHelper.getCartPage());
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            AppIcon(
+                              icon: Icons.shopping_cart_outlined,
+                              iconSize: Dimensions.iconSize20,
+                            ),
+                            //for the totalItems in the cart if exist
+                            if(popularProduct.totalItems>0)
+                               Positioned(
+                                left: 0,
+                                top: 0,
+                                child: Container(
+                                  width: Dimensions.width20,
+                                  height: Dimensions.height20,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                    color: AppColors.mainColor,
+                                  ),
+                                  child: Center(child: BigText(text: popularProduct.totalItems.toString(),color: Colors.white,size: 12)),
+                                ),
+                              )
+                          ],
+                        ),
+                      );
+                    }
                   ),
                 ],
-              )),
+              )
+          ),
           // introduction of Food
           Positioned(
             left: 0,
