@@ -22,6 +22,7 @@ class PopularFoodDetails extends StatelessWidget {
     Get.find<PopularProductController>().initProduct(product,Get.find<CartController>());
 
     return Scaffold(
+
       backgroundColor: Colors.white,
       body: Stack(
         children: [

@@ -162,8 +162,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.only(
-                                left: Dimensions.width10,
-                                right: Dimensions.width10,
+                                left: Dimensions.width10/2,
+                                right: Dimensions.width10/2,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
