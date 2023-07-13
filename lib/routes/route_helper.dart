@@ -1,17 +1,21 @@
 import 'package:food_delivery_app/pages/Food/popular_food_details.dart';
 import 'package:food_delivery_app/pages/Food/recommended_food_details.dart';
 import 'package:food_delivery_app/pages/cart/cart_page.dart';
+import 'package:food_delivery_app/pages/home/home_page.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
+import 'package:food_delivery_app/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
 
 class RouteHelper {
   static const String initial = '/';
+  static const String splashPage = '/splash-page';
   static const String popularFood = '/popular-food';
   static const String recommendedFood = '/recommended-food';
   static const String cartPage = '/cart-page';
 
   static String getInitial() => initial;
+  static String getSplashPage() => splashPage;
   static String getPopularFood(int pageId) => '$popularFood?pageId=$pageId';
   static String getRecommendedFood(int pageId) => '$recommendedFood?pageId=$pageId';
   static String getCartPage() => '$cartPage';
@@ -20,7 +24,7 @@ class RouteHelper {
     GetPage(
         name: initial,
         page: () {
-          return const MainFoodPage();
+          return const HomePage();
         },
         transition: Transition.fadeIn
     ),
@@ -44,6 +48,13 @@ class RouteHelper {
         name: cartPage,
         page: () {
           return const CartPage();
+        },
+        transition: Transition.fadeIn,
+    ),
+    GetPage(
+        name: splashPage,
+        page: () {
+          return const SplashScreen();
         },
         transition: Transition.fadeIn,
     ),

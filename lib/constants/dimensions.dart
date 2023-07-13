@@ -53,7 +53,6 @@ class Dimensions{
 // Recommended Food details Dimensions
   static double toolBarHeight = screenHeight/12.4;
   static double imgExpandedHeight = screenHeight/2.48;
-
-
-
+// SplashScreen Dimensions
+  static double imageWidth =screenWidth / 1.37;
 }
