@@ -38,7 +38,7 @@ class RecommendedFoodDetails extends StatelessWidget {
                       Get.toNamed(RouteHelper.getInitial());
                     } ,
                   ),
-                   GestureDetector(
+                  GestureDetector(
                     onTap: () {
                       if(controller.totalItems>0) {
                         Get.toNamed(RouteHelper.getCartPage());
@@ -146,7 +146,7 @@ class RecommendedFoodDetails extends StatelessWidget {
               height: Dimensions.bottomHeightBar,
               padding: EdgeInsets.symmetric(vertical:Dimensions.height10,horizontal:Dimensions.width20),
               decoration: BoxDecoration(
-                  color: AppColors.buttonBackgroundColor,
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radius20*2),
                     topRight: Radius.circular(Dimensions.radius20*2),

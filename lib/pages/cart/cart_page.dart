@@ -201,7 +201,7 @@ class CartPage extends StatelessWidget {
               left: Dimensions.width20,
               right: Dimensions.width20),
           decoration: BoxDecoration(
-              color: AppColors.buttonBackgroundColor,
+              color: Colors.grey.shade200,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(Dimensions.radius20 * 2),
                 topRight: Radius.circular(Dimensions.radius20 * 2),
@@ -224,7 +224,9 @@ class CartPage extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  cartController.addToCartHistory();
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.width20,

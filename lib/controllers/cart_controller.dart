@@ -12,6 +12,8 @@ class CartController extends GetxController {
   Map<int, CartModel> _items = {};
   Map<int, CartModel> get items => _items;
 
+  //for storage items
+  List<CartModel> storageItems=[];
   // add the item with the quantity in the items list(which contains the items in the Cart)
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
@@ -58,6 +60,7 @@ class CartController extends GetxController {
         );
       }
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -105,6 +108,51 @@ class CartController extends GetxController {
       total += value.quantity!*value.price!;
     });
     return total;
+  }
+
+  List <CartModel> getCartData (){
+    setCart = cartRepo.getCartList();
+    return storageItems;
+  }
+  
+  set setCart(List<CartModel> items){
+    storageItems = items;
+    for (int i =0;i<storageItems.length;i++) {
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
+  }
+  
+  void addToCartHistory(){
+    cartRepo.addToCartHistoryList();
+    clear();
+  }
+
+  void clear() {
+    _items ={};
+    update();
+  }
+
+  // to get the list of the Cart history from the cart repo.
+  List<CartModel> getCartHistoryList(){
+    return cartRepo.getCartHistoryList();
+  }
+
+
+  // to get the number of items per one cart history.
+  Map<String,int>  getCartItemsPerOrder(){
+    Map<String,int>  cartItemsPerOrder ={};
+    for(int i = 0 ; i<getCartHistoryList().length;i++){
+      if(cartItemsPerOrder.containsKey(getCartHistoryList()[i].time)){
+        cartItemsPerOrder.update(getCartHistoryList()[i].time!, (value) => ++value);
+      }else{
+        cartItemsPerOrder.putIfAbsent(getCartHistoryList()[i].time!, () => 1);
+      }
+    }
+    return cartItemsPerOrder;
+  }
+
+  List<int> itemsPerOrder (){
+    return getCartItemsPerOrder().entries.map((e) => e.value).toList();
   }
 
 }

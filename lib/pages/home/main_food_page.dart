@@ -27,7 +27,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
         children: [
           Container(
             padding:  EdgeInsets.symmetric(horizontal: Dimensions.width20),
-            margin:  EdgeInsets.only(top: Dimensions.height45,bottom: Dimensions.height15),
+            margin:  EdgeInsets.only(top: Dimensions.height30,bottom: Dimensions.height15),
             child: SizedBox(
               child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

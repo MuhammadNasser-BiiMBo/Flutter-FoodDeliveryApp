@@ -30,12 +30,12 @@ class FoodDataColumn extends StatelessWidget {
                     size: Dimensions.height15,
                   )),
             ),
-            const SizedBox(
-              width: 5,
+             SizedBox(
+              width: Dimensions.width10/2,
             ),
             SmallText(text: '4.5'),
-            const SizedBox(
-              width: 20,
+             SizedBox(
+              width: Dimensions.width20,
             ),
             SmallText(text: '1059 comments'),
           ],

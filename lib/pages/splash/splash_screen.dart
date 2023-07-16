@@ -18,6 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
   late Animation<double> animation;
   late AnimationController controller;
+
   _loadResources()async{
     await Get.find<PopularProductController>().getPopularProductList();
     await Get.find<RecommendedProductController>().getRecommendedProductList();
@@ -32,10 +33,14 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     )..forward();
     animation = CurvedAnimation(
         parent: controller,
-        curve: Curves.linearToEaseOut,
+        curve: Curves.linear,
     );
-
     Timer(const Duration(seconds: 3), ()=>Get.offNamed(RouteHelper.getInitial()));
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
