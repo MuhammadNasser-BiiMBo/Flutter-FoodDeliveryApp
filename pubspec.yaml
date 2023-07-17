@@ -39,6 +39,7 @@ dependencies:
   dots_indicator: ^2.1.1
   animated_bottom_navigation_bar: ^1.2.0
   shared_preferences: ^2.2.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

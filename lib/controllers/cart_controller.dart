@@ -151,8 +151,19 @@ class CartController extends GetxController {
     return cartItemsPerOrder;
   }
 
-  List<int> itemsPerOrder (){
+  List<int> itemsPerOrderList (){
     return getCartItemsPerOrder().entries.map((e) => e.value).toList();
+  }
+  List<String> getOrderTimesList (){
+    return getCartItemsPerOrder().entries.map((e) => e.key).toList();
+  }
+  set setItems(Map<int,CartModel> setItems){
+    _items = {};
+    _items = setItems;
+  }
+  void addToCartList(){
+    cartRepo.addToCartList(getItems);
+    update();
   }
 
 }

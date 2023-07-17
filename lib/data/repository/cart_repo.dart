@@ -62,7 +62,6 @@ class CartRepo{
     for (var element in cartHistory) {
       cartListHistory.add(CartModel.fromJson(jsonDecode(element)));
     }
-
     return cartListHistory;
   }
 

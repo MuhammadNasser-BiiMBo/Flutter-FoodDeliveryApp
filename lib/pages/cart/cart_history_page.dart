@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/constants.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
+import 'package:food_delivery_app/widgets/not_data_page.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
+import '../../models/cart_model.dart';
 import '../../widgets/big_text.dart';
 
 class CartHistoryPage extends StatelessWidget {
@@ -15,12 +20,19 @@ class CartHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var itemsPerOrder = Get.find<CartController>().itemsPerOrder();
-    var cartItemsPerOrder = Get.find<CartController>().getCartItemsPerOrder();
+    var itemsPerOrder = Get.find<CartController>().itemsPerOrderList();
     var cartHistoryList = Get.find<CartController>().getCartHistoryList();
+    var orderTimes = Get.find<CartController>().getOrderTimesList();
     var listCounter = 0;
-    print(itemsPerOrder);
-    print(cartItemsPerOrder);
+    //the time widget functionality to change the time format for each item in the list
+    Widget timeWidget (){
+      DateTime date = DateFormat('yyyy-MM-dd HH:mm:ss').parse(cartHistoryList[listCounter].time!);
+      var inputDate = DateTime.parse(date.toString());
+      var outFormat = DateFormat('dd/MM/yyyy hh:mm a');
+      var out = outFormat.format(inputDate);
+      return BigText(text: out);
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -37,9 +49,14 @@ class CartHistoryPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   BigText(text: 'Cart History', color: Colors.white),
-                  const AppIcon(
-                    icon: Icons.shopping_cart_outlined,
-                    iconColor: AppColors.mainColor,
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(RouteHelper.getCartPage());
+                    },
+                    child: const AppIcon(
+                      icon: Icons.shopping_cart_outlined,
+                      iconColor: AppColors.mainColor,
+                    ),
                   )
                 ],
               ),
@@ -55,28 +72,27 @@ class CartHistoryPage extends StatelessWidget {
               child: MediaQuery.removePadding(
                 removeTop: true,
                 context: context,
-                child: ListView(
+                child: cartHistoryList.isNotEmpty ? ListView(
                   physics: const BouncingScrollPhysics(),
                   children: [
                     for (int i = 0; i < itemsPerOrder.length; i++)
                       Container(
-                        height: 145,
+                        height: Dimensions.height20*7,
                         decoration: BoxDecoration(
                           border:Border.all(width: 2,color: AppColors.mainColor,),
                           borderRadius: BorderRadius.circular(Dimensions.radius20)
                         ),
-                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10,vertical: Dimensions.height10),
+                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10,),
                         margin: EdgeInsets.only(bottom: Dimensions.height10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BigText(text: '21/12/2000 10:00 PM'),
+                            timeWidget(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Wrap(
-                                  // spacing: Dimensions.width10/2,
                                   direction: Axis.horizontal,
                                   children: List.generate(itemsPerOrder[i], (index) {
                                     if (listCounter < cartHistoryList.length) {
@@ -95,20 +111,35 @@ class CartHistoryPage extends StatelessWidget {
                                   }),
                                 ),
                                 SizedBox(
-                                  height: 80,
+                                  height: Dimensions.height20*4,
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: [
                                       SmallText(text: 'Total',color: AppColors.titleColor,),
                                       BigText(text: '${itemsPerOrder[i]} Items',color: AppColors.titleColor,),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(Dimensions.radius10/2),
-                                          border: Border.all(width:1,color: AppColors.mainColor),
+                                      InkWell(
+                                        onTap: (){
+                                          Map<int,CartModel> moreOrder = {};
+                                          for(int j = 0; j<cartHistoryList.length;j++){
+                                            if(cartHistoryList[j].time==orderTimes[i]){
+                                              moreOrder.putIfAbsent(cartHistoryList[j].id!, (){
+                                                return CartModel.fromJson(jsonDecode(jsonEncode(cartHistoryList[j])));
+                                              });
+                                            }
+                                          }
+                                          Get.find<CartController>().setItems = moreOrder;
+                                          Get.find<CartController>().addToCartList() ;
+                                          Get.toNamed(RouteHelper.getCartPage());
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/2),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(Dimensions.radius10/2),
+                                            border: Border.all(width:1,color: AppColors.mainColor),
+                                          ),
+                                          child: SmallText(text: 'one more',color: AppColors.mainColor,),
                                         ),
-                                        child: SmallText(text: 'one more',color: AppColors.mainColor,),
                                       )
                                     ],
                                   ),
@@ -120,7 +151,8 @@ class CartHistoryPage extends StatelessWidget {
                         ),
                       )
                   ],
-                ),
+                )
+                    :const NoDataPage(text: "you didn't but anything so far !", imgPath: 'assets/images/empty_box.png')
               ),
             ),
           )
@@ -128,4 +160,5 @@ class CartHistoryPage extends StatelessWidget {
       ),
     );
   }
+
 }
