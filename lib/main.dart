@@ -3,6 +3,7 @@ import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
 import 'package:food_delivery_app/pages/auth/sign_in_page.dart';
+import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 
 import 'package:food_delivery_app/pages/splash/splash_screen.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(useMaterial3: true),
           // initialRoute: RouteHelper.getSplashPage(),
           // getPages: RouteHelper.routes,
-          home: SignInPage(),
+          home: SignUpPage(),
           debugShowCheckedModeBanner: false,
         ),
       ),

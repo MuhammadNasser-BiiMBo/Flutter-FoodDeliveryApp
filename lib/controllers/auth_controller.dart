@@ -1,4 +1,5 @@
 import 'package:food_delivery_app/data/repository/auth_repo.dart';
+import 'package:food_delivery_app/models/response_model.dart';
 import 'package:food_delivery_app/models/sign_up_model.dart';
 import 'package:get/get.dart';
 
@@ -10,13 +11,19 @@ class AuthController extends GetxController implements GetxService{
   bool _isLoading = false;
   bool get isLoading =>_isLoading;
 
-  Future<void> registration(SignUpModel signUpModel)async{
+  Future<ResponseModel> registration(SignUpModel signUpModel)async{
     _isLoading = true;
+    update();
     Response response = await authRepo.registration(signUpModel);
+    late ResponseModel responseModel;
     if(response.statusCode==200){
-      authRepo.saveUserToken(response.body.token);
+      authRepo.saveUserToken(response.body['token']);
+      responseModel = ResponseModel(true, response.body['token']);
     }else{
-
+      responseModel = ResponseModel(false, response.statusText!);
     }
+    _isLoading = false;
+    update();
+    return responseModel;
   }
 }
