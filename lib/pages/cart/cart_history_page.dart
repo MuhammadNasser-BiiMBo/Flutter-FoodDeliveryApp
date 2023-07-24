@@ -7,7 +7,7 @@ import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
-import 'package:food_delivery_app/widgets/not_data_page.dart';
+import 'package:food_delivery_app/base/no_data_page.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -152,7 +152,10 @@ class CartHistoryPage extends StatelessWidget {
                       )
                   ],
                 )
-                    :const NoDataPage(text: "you didn't but anything so far !", imgPath: 'assets/images/empty_box.png')
+                    :const NoDataPage(
+                    text: "you didn't but anything so far !",
+                    imgPath: 'assets/images/empty_box.png'
+                )
               ),
             ),
           )

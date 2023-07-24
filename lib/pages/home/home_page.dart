@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
+import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 import 'package:food_delivery_app/pages/cart/cart_history_page.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
+import 'package:food_delivery_app/pages/user/user_page.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 
 import '../../constants/dimensions.dart';
@@ -17,9 +19,9 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List <Widget> pages =[
     const MainFoodPage(),
-    Container(child: Center(child: BigText(text: 'History'),),),
-    CartHistoryPage(),
-    Container(child: Center(child: BigText(text: 'Profile'),),),
+    SignUpPage(),
+    const CartHistoryPage(),
+    const UserPage(),
 
   ];
 
