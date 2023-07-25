@@ -17,12 +17,12 @@ class AppTextField extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: Dimensions.width20),
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(Dimensions.radius30),
+          borderRadius: BorderRadius.circular(Dimensions.radius20),
           boxShadow: [
             BoxShadow(
-                spreadRadius: 7,
-                blurRadius: 10,
-                offset: const Offset(1, 10),
+                spreadRadius: 3,
+                blurRadius: 5,
+                offset: const Offset(1, 5),
                 color: Colors.grey.withOpacity(0.2)
             )
           ]
@@ -37,7 +37,7 @@ class AppTextField extends StatelessWidget {
             prefixIcon:  Icon(icon,color: iconColor,),
             // focused border
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(Dimensions.radius20),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.white,

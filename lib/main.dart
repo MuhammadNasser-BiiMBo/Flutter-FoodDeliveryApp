@@ -28,9 +28,8 @@ class MyApp extends StatelessWidget {
       builder:(_)=> GetBuilder<RecommendedProductController>(
         builder:(_)=> GetMaterialApp(
           theme: ThemeData(useMaterial3: true),
-          // initialRoute: RouteHelper.getSplashPage(),
-          // getPages: RouteHelper.routes,
-          home: SignUpPage(),
+          initialRoute: RouteHelper.getSplashPage(),
+          getPages: RouteHelper.routes,
           debugShowCheckedModeBanner: false,
         ),
       ),

@@ -26,37 +26,6 @@ class SignUpPage extends StatelessWidget {
     'g.png',
   ];
   // registration method
-  void _registration(AuthController authController) {
-    String name = userNameController.text;
-    String phone = phoneController.text;
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    if (name.isEmpty) {
-      showCustomSnackBar('Type in your name', title: 'Name');
-    } else if (phone.isEmpty) {
-      showCustomSnackBar('Type in your Phone', title: 'Phone number');
-    } else if (email.isEmpty) {
-      showCustomSnackBar('Type in your Email', title: 'Email address');
-    } else if (!email.isEmail) {
-      showCustomSnackBar('Type in a valid email address',
-          title: ' Email address');
-    } else if (password.isEmpty) {
-      showCustomSnackBar('Type in your Password', title: 'Password');
-    } else if (password.length < 6) {
-      showCustomSnackBar('Password can\'t be less than six characters',
-          title: 'Password');
-    } else {
-      SignUpModel signUpModel = SignUpModel(name, phone, email, password);
-      authController.registration(signUpModel).then((value) {
-        if (value.isSuccess) {
-          print('Success Registration');
-        } else {
-          showCustomSnackBar(value.message);
-        }
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +72,12 @@ class SignUpPage extends StatelessWidget {
               ),
               // password
               AppTextField(
-                  hint: 'Password',
-                  icon: Icons.password,
-                  controller: passwordController,
-                  iconColor: AppColors.mainColor),
+                hint: 'Password',
+                icon: Icons.password,
+                controller: passwordController,
+                iconColor: AppColors.mainColor,
+                obscure: true,
+              ),
               SizedBox(
                 height: Dimensions.height20,
               ),
@@ -120,25 +91,36 @@ class SignUpPage extends StatelessWidget {
                 height: Dimensions.height30,
               ),
               // Sign up button
-              !authController.isLoading?GestureDetector(
-                onTap: () {
-                  _registration(authController);
-                },
-                child: Container(
-                  width: Dimensions.screenWidth / 2,
-                  height: Dimensions.screenHeight / 12,
-                  decoration: BoxDecoration(
-                      color: AppColors.mainColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radius30)),
-                  child: Center(
-                      child: BigText(
-                    text: 'Sign up',
-                    color: Colors.white,
-                    size: 30,
-                  )),
-                ),
-              ):
-              const Center(child: CircularProgressIndicator(color: AppColors.mainColor,),),
+              !authController.isLoading
+                  ? GestureDetector(
+                      onTap: () {
+                        authController.register(
+                            userName: userNameController.text,
+                            phoneNumber: phoneController.text,
+                            emailAddress: emailController.text,
+                            userPassword: passwordController.text
+                        );
+                      },
+                      child: Container(
+                        width: Dimensions.screenWidth / 2,
+                        height: Dimensions.screenHeight / 12,
+                        decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius30)),
+                        child: Center(
+                            child: BigText(
+                          text: 'Sign up',
+                          color: Colors.white,
+                          size: 30,
+                        )),
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.mainColor,
+                      ),
+                    ),
               SizedBox(
                 height: Dimensions.height10,
               ),

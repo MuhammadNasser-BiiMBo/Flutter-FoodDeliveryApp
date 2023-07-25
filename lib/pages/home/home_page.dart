@@ -17,9 +17,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  // navigation pages
   List <Widget> pages =[
     const MainFoodPage(),
-    SignUpPage(),
+    Center(child: BigText(text: 'History'),),
     const CartHistoryPage(),
     const UserPage(),
 
