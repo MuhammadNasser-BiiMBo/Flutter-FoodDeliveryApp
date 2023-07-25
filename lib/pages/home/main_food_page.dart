@@ -23,41 +23,47 @@ class _MainFoodPageState extends State<MainFoodPage> {
     print('current height is :${MediaQuery.of(context).size.height}');
     print('current width is :${MediaQuery.of(context).size.width}');
     return  Scaffold(
-      body: Column(
-        children: [
-          Container(
-            padding:  EdgeInsets.symmetric(horizontal: Dimensions.width20),
-            margin:  EdgeInsets.only(top: Dimensions.height30,bottom: Dimensions.height15),
-            child: SizedBox(
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      BigText(text: 'Bangladesh',color: AppColors.mainColor,),
-                      Row(
-                        children: [
-                          SmallText(text: 'Narsindgi',color: Colors.black,),
-                          const Icon(
-                            Icons.arrow_drop_down_rounded,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.height15),
-                      color: AppColors.mainColor,
+      appBar: AppBar(
+        title:Container(
+          padding:  EdgeInsets.symmetric(horizontal: Dimensions.width10),
+          margin:  EdgeInsets.only(top: Dimensions.height20,bottom: Dimensions.height15),
+          child: SizedBox(
+            child:  Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    BigText(text: 'Bangladesh',color: AppColors.mainColor,),
+                    Row(
+                      children: [
+                        SmallText(text: 'Narsindgi',color: Colors.black,),
+                        const Icon(
+                          Icons.arrow_drop_down_rounded,
+                        )
+                      ],
                     ),
-                    width: Dimensions.width45,
-                    height: Dimensions.height45,
-                    child:  Icon(Icons.search,color: Colors.white,size: Dimensions.iconSize24,),
-                  )
-                ],
-              ),
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.height15),
+                    color: AppColors.mainColor,
+                  ),
+                  width: Dimensions.width45,
+                  height: Dimensions.height45,
+                  child:  Icon(Icons.search,color: Colors.white,size: Dimensions.iconSize24,),
+                )
+              ],
             ),
           ),
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        shadowColor: Colors.white,
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: Dimensions.height20,),
           const Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

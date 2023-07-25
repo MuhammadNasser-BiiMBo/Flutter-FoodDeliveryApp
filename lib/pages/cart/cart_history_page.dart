@@ -35,33 +35,37 @@ class CartHistoryPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: AppColors.mainColor,
+        title: Container(
+          width: double.maxFinite,
+          color: AppColors.mainColor,
+          padding: EdgeInsets.symmetric(
+              vertical: Dimensions.height10,
+              horizontal: Dimensions.width15),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              BigText(text: 'Cart History', color: Colors.white),
+              InkWell(
+                onTap: (){
+                  Get.toNamed(RouteHelper.getCartPage());
+                },
+                child: const AppIcon(
+                  icon: Icons.shopping_cart_outlined,
+                  iconColor: AppColors.mainColor,
+                ),
+              )
+            ],
+          ),
+        ),
+        toolbarHeight: Dimensions.height30+Dimensions.height20,
+        automaticallyImplyLeading: false,
+        shadowColor: Colors.white,
+      ),
       body: Column(
         children: [
-          SafeArea(
-            child: Container(
-              width: double.maxFinite,
-              color: AppColors.mainColor,
-              padding: EdgeInsets.symmetric(
-                  vertical: Dimensions.height10,
-                  horizontal: Dimensions.width15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BigText(text: 'Cart History', color: Colors.white),
-                  InkWell(
-                    onTap: (){
-                      Get.toNamed(RouteHelper.getCartPage());
-                    },
-                    child: const AppIcon(
-                      icon: Icons.shopping_cart_outlined,
-                      iconColor: AppColors.mainColor,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(

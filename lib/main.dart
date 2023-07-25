@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
     return GetBuilder<PopularProductController>(
       builder:(_)=> GetBuilder<RecommendedProductController>(
         builder:(_)=> GetMaterialApp(
-          theme: ThemeData(useMaterial3: true),
           initialRoute: RouteHelper.getSplashPage(),
           getPages: RouteHelper.routes,
           debugShowCheckedModeBanner: false,
