@@ -71,6 +71,12 @@ class CartRepo{
     cart = [];
     sharedPreferences.remove(AppConstants.CART_LIST);
   }
+  // to remove all the cart and cart history items when logged out.
+  void clearCartHistory(){
+    removeCart();
+    cartHistory=[];
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+  }
 
 
 }

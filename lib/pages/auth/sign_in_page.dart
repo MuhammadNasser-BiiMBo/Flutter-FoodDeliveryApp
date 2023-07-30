@@ -12,7 +12,7 @@ import '../../constants/dimensions.dart';
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
   var passwordController = TextEditingController();
-  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +63,9 @@ class SignInPage extends StatelessWidget {
               ),
               // phone
               AppTextField(
-                hint: 'Email Address',
-                icon: Icons.email,
-                controller: emailController,
+                hint: 'Phone number',
+                icon: Icons.phone_android,
+                controller: phoneController,
                 iconColor: AppColors.mainColor,
               ),
               SizedBox(
@@ -84,9 +84,10 @@ class SignInPage extends StatelessWidget {
               !authController.isLoading?GestureDetector(
                 onTap: () {
                   authController.login(
-                    emailAddress: emailController.text,
+                    phoneNumber: phoneController.text,
                     userPassword: passwordController.text,
                   );
+                  print('log');
                 },
                 child: Container(
                   width: Dimensions.screenWidth / 2,

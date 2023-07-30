@@ -1,11 +1,11 @@
 class LoginModel {
-  String emailAddress;
+  String phoneNumber;
   String password;
-  LoginModel({required this.emailAddress,required this.password});
+  LoginModel({required this.phoneNumber,required this.password});
 
   Map<String, dynamic> toJson(){
     return{
-      'email':emailAddress,
+      'phone':phoneNumber,
       'password':password,
     };
   }

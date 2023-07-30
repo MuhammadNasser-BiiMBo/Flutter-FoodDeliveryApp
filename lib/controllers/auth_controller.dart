@@ -43,7 +43,6 @@ class AuthController extends GetxController implements GetxService {
           SignUpModel(userName, phoneNumber, emailAddress, userPassword);
       registration(signUpModel).then((response) {
         if (response.isSuccess) {
-          print(authRepo.getUserToken());
           Get.toNamed(RouteHelper.getInitial());
         } else {
           showCustomSnackBar(response.message);
@@ -71,14 +70,14 @@ class AuthController extends GetxController implements GetxService {
 
   // login validations
   void login({
-    required String emailAddress,
+    required String phoneNumber,
     required String userPassword,
   }) {
-    if (emailAddress.isEmpty) {
-      showCustomSnackBar('Type in your Email', title: 'Email address');
-    } else if (!emailAddress.isEmail) {
-      showCustomSnackBar('Type in a valid email address',
-          title: ' Email address');
+    if (phoneNumber.isEmpty) {
+      showCustomSnackBar('Type in your Phone', title: 'Phone Number');
+    } else if (!phoneNumber.isPhoneNumber) {
+      showCustomSnackBar('Type in a valid Phone Number',
+          title: 'Phone Number');
     } else if (userPassword.isEmpty) {
       showCustomSnackBar('Type in your Password', title: 'Password');
     } else if (userPassword.length < 6) {
@@ -86,10 +85,9 @@ class AuthController extends GetxController implements GetxService {
           title: 'Password');
     } else {
       LoginModel loginModel =
-          LoginModel(emailAddress: emailAddress, password: userPassword);
+          LoginModel(phoneNumber: phoneNumber, password: userPassword);
       signIn(loginModel).then((response) {
         if (response.isSuccess) {
-          print(authRepo.getUserToken());
           Get.toNamed(RouteHelper.getInitial());
         } else {
           showCustomSnackBar(response.message);
@@ -105,6 +103,7 @@ class AuthController extends GetxController implements GetxService {
     Response response = await authRepo.signIn(loginModel);
     late ResponseModel responseModel;
     if(response.statusCode==200){
+      print('my token is ${response.body['token']}');
       authRepo.saveUserToken(response.body['token']);
       responseModel = ResponseModel(true, response.body['token']);
     }else{
@@ -119,8 +118,12 @@ class AuthController extends GetxController implements GetxService {
   void saveUserNumberAndPassword(String number,String password){
     authRepo.saveUserNumberAndPassword(number, password);
   }
-
+  // calling the method from auth repo to check whether the user is logged in or not.
   bool userLoggedIn(){
     return authRepo.userLoggedIn();
+  }
+  // calling the method from auth repo to delete the user shared preferences data.
+  bool clearUserSharedData(){
+    return authRepo.clearUserSharedData();
   }
 }

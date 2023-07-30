@@ -39,9 +39,18 @@ class AuthRepo{
   String getUserToken(){
     return sharedPreferences.getString(AppConstants.TOKEN)??'none';
   }
-  //
+  // to know whether the user is logged in or not.
   bool userLoggedIn(){
     return sharedPreferences.containsKey(AppConstants.TOKEN);
+  }
+  // to clear userData when logged out
+  bool clearUserSharedData(){
+    sharedPreferences.remove(AppConstants.TOKEN);
+    sharedPreferences.remove(AppConstants.PASSWORD);
+    sharedPreferences.remove(AppConstants.PHONE);
+    apiClient.token='';
+    apiClient.updateHeader('');
+    return true;
   }
 
 }

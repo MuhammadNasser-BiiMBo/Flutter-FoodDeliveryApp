@@ -137,7 +137,6 @@ class CartController extends GetxController {
     return cartRepo.getCartHistoryList();
   }
 
-
   // to get the number of items per one cart history.
   Map<String,int>  getCartItemsPerOrder(){
     Map<String,int>  cartItemsPerOrder ={};
@@ -151,18 +150,31 @@ class CartController extends GetxController {
     return cartItemsPerOrder;
   }
 
+  // to get the list of items for each order
   List<int> itemsPerOrderList (){
     return getCartItemsPerOrder().entries.map((e) => e.value).toList();
   }
+
+  // to get the list of time of the orders.
   List<String> getOrderTimesList (){
     return getCartItemsPerOrder().entries.map((e) => e.key).toList();
   }
+
+  // to make the order from cart history with change of the items.
   set setItems(Map<int,CartModel> setItems){
     _items = {};
     _items = setItems;
   }
+
+  //add items to cart
   void addToCartList(){
     cartRepo.addToCartList(getItems);
+    update();
+  }
+
+  // to clear CartHistory and cart when logged out.
+  void clearCartHistory(){
+    cartRepo.clearCartHistory();
     update();
   }
 
