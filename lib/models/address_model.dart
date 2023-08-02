@@ -38,7 +38,7 @@ class AddressModel{
 
   // fromJson
   AddressModel.fromJson(Map<String,dynamic> json){
-    _id = json['id']??'';
+    _id = json['id'];
     _addressType = json['address_type']??'';
     _contactPersonName = json['contact_person_name']??'';
     _contactPersonNumber = json['contact_person_number']??'';

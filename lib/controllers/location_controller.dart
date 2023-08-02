@@ -13,7 +13,7 @@ class LocationController extends GetxController implements GetxService{
   LocationController({required this.locationRepo});
 
   bool _Loading = false;
-  bool get isLoading => _Loading;
+  bool get loading => _Loading;
   //position vars
   late Position _position;
   Position get position=>_position;
@@ -93,6 +93,9 @@ class LocationController extends GetxController implements GetxService{
       catch(e){
         print(e.toString());
       }
+
+      _Loading =false;
+      update();
     }
   }
 
@@ -173,5 +176,9 @@ class LocationController extends GetxController implements GetxService{
     _addressList = [];
     _allAddressList =[];
     update();
+  }
+
+  String getUserAddressFromLocalStorage() {
+    return locationRepo.getUserAddress();
   }
 }

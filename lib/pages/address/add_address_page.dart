@@ -5,6 +5,7 @@ import 'package:food_delivery_app/controllers/auth_controller.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
 import 'package:food_delivery_app/controllers/user_controller.dart';
 import 'package:food_delivery_app/models/address_model.dart';
+import 'package:food_delivery_app/pages/address/pick_address_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/text_field_widget.dart';
@@ -56,6 +57,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
     //<---------- to set the address to current address if it's not empty----------->
     if (Get.find<LocationController>().addressList.isNotEmpty) {
+      if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
+          '') {
+        Get.find<LocationController>()
+            .saveUserAddress(Get.find<LocationController>().addressList.last);
+      }
       Get.find<LocationController>().getUserAddress();
       // to set the Camera position the current location
       _cameraPosition = CameraPosition(
@@ -91,6 +97,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
             if (Get.find<LocationController>().addressList.isNotEmpty) {
               _addressController.text =
                   Get.find<LocationController>().getUserAddress().address;
+              print('done');
             }
           }
           return GetBuilder<LocationController>(
@@ -98,9 +105,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
               print(_addressController.text);
               _addressController.text =
                   "${locationController.placemark.name ?? ''}"
-                  "${locationController.placemark.locality??''}"
-                  "${locationController.placemark.postalCode??''}"
-                  "${locationController.placemark.country??''}";
+                  "${locationController.placemark.locality ?? ''}"
+                  "${locationController.placemark.postalCode ?? ''}"
+                  "${locationController.placemark.country ?? ''}";
               print('address is ${_addressController.text}');
               return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -139,6 +146,17 @@ class _AddAddressPageState extends State<AddAddressPage> {
                                 _cameraPosition = position),
                             onMapCreated: (GoogleMapController controller) {
                               locationController.setMapController(controller);
+                            },
+                            onTap: (latlng) {
+                              Get.toNamed(
+                                RouteHelper.getPickAddressPage(),
+                                arguments: PickAddressMap(
+                                  fromAddress: true,
+                                  fromSignup: false,
+                                  googleMapController:
+                                      locationController.mapController,
+                                ),
+                              );
                             },
                           )
                         ],
@@ -270,16 +288,21 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       addressType: locationController
                           .addressTypeList[locationController.addressTypeIndex],
                       address: _addressController.text,
-                      latitude: locationController.position.latitude.toString()??'',
-                      longitude: locationController.position.longitude.toString()??'',
+                      latitude:
+                          locationController.position.latitude.toString() ?? '',
+                      longitude:
+                          locationController.position.longitude.toString() ??
+                              '',
                       contactPersonName: _contactPersonNameController.text,
                       contactPersonNumber: _contactPersonNumberController.text,
                     );
-                    locationController.addAddress(addressModel).then((response){
-                      if(response.isSuccess){
+                    locationController
+                        .addAddress(addressModel)
+                        .then((response) {
+                      if (response.isSuccess) {
                         Get.toNamed(RouteHelper.getInitial());
                         Get.snackbar('Address', 'Added Successfully');
-                      }else{
+                      } else {
                         Get.snackbar('Address', "Couldn't save address");
                       }
                     });

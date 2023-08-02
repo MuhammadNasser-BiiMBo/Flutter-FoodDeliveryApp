@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_delivery_app/controllers/auth_controller.dart';
+import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
@@ -33,6 +33,9 @@ class MyApp extends StatelessWidget {
           initialRoute: RouteHelper.getSplashPage(),
           getPages: RouteHelper.routes,
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: AppColors.mainColor
+          ),
         ),
       ),
     );

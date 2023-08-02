@@ -8,6 +8,8 @@ import 'package:food_delivery_app/pages/home/home_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_screen.dart';
 import 'package:get/get.dart';
 
+import '../pages/address/pick_address_page.dart';
+
 
 class RouteHelper {
   static const String initial = '/';
@@ -18,6 +20,7 @@ class RouteHelper {
   static const String login = '/login-page';
   static const String register = '/register-page';
   static const String addAddress = '/add-address';
+  static const String pickAddressMap = '/pick-address';
 
   static String getInitial() => initial;
   static String getSplashPage() => splashPage;
@@ -27,6 +30,7 @@ class RouteHelper {
   static String getLoginPage() => login;
   static String getRegisterPage() => register;
   static String getAddAddressPage() => addAddress;
+  static String getPickAddressPage() => pickAddressMap;
 
   static List<GetPage> routes = [
     GetPage(
@@ -84,6 +88,14 @@ class RouteHelper {
         name: addAddress,
         page: () {
           return  AddAddressPage();
+        },
+        transition: Transition.fadeIn,
+    ),
+    GetPage(
+        name: pickAddressMap,
+        page: () {
+          PickAddressMap _pickAddress = Get.arguments;
+          return _pickAddress;
         },
         transition: Transition.fadeIn,
     ),
