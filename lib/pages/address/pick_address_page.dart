@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/custom_button.dart';
 import 'package:get/get.dart';
@@ -119,18 +120,41 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       bottom: 50,
                       left: Dimensions.width45,
                       right: Dimensions.width45,
-                      child: CustomButton(
-                        buttonText: 'Pick Address',
-                        onPressed: locationController.loading?null:(){
-                          if(locationController.pickPosition.latitude!=0&& locationController.pickPlacemark.name!=null){
-                            if(widget.fromAddress){
-                              if(widget.googleMapController!=null){
-                                print('object');
-                              }
-                            }
-                          }
-                        },
-                      ),
+                      child: locationController.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : CustomButton(
+                              buttonText: locationController.inZone?widget.fromAddress?'Pick Address':'Pick Location':'Service is not available in your area',
+                              onPressed: (locationController.buttonDisabled||locationController.loading) ? null : () {
+                                      if (locationController.pickPosition.latitude != 0 && locationController.pickPlacemark.name != null) {
+                                        if (widget.fromAddress) {
+                                          if (widget.googleMapController !=
+                                              null) {
+                                            print('object');
+                                            widget.googleMapController!
+                                                .moveCamera(
+                                              CameraUpdate.newCameraPosition(
+                                                CameraPosition(
+                                                  target: LatLng(
+                                                    locationController
+                                                        .pickPosition.latitude,
+                                                    locationController
+                                                        .pickPosition.longitude,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                            locationController
+                                                .setAddAddressData();
+                                          }
+                                          // locationController.position = locationController.pickPosition;
+                                          Get.toNamed(
+                                              RouteHelper.getAddAddressPage());
+                                        }
+                                      }
+                                    },
+                            ),
                     )
                   ],
                 ),

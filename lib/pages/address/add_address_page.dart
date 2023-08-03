@@ -132,7 +132,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         children: [
                           GoogleMap(
                             initialCameraPosition: CameraPosition(
-                                target: _initialPosition, zoom: 10),
+                              target: _initialPosition,
+                              zoom: 17,
+                            ),
                             zoomControlsEnabled: false,
                             compassEnabled: false,
                             indoorViewEnabled: true,
@@ -147,7 +149,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             onMapCreated: (GoogleMapController controller) {
                               locationController.setMapController(controller);
                             },
-                            onTap: (latlng) {
+                            onTap: (latLng) {
                               Get.toNamed(
                                 RouteHelper.getPickAddressPage(),
                                 arguments: PickAddressMap(
