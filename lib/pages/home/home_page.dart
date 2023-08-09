@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
-import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 import 'package:food_delivery_app/pages/cart/cart_history_page.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/pages/user/user_page.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
-
 import '../../constants/dimensions.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,6 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: Container(

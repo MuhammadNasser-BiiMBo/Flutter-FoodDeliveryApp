@@ -11,15 +11,13 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/profile_widget.dart';
 import 'package:get/get.dart';
 
+import '../../constants/constants.dart';
+
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    if(Get.find<AuthController>().userLoggedIn()){
-      Get.find<UserController>().getUserInfo();
-    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -105,6 +103,7 @@ class UserPage extends StatelessWidget {
                               }else{
                                 return GestureDetector(
                                   onTap: (){
+                                    Get.find<LocationController>().getUserAddress();
                                     Get.toNamed(RouteHelper.getAddAddressPage());
                                   },
                                   child: const ProfileWidget(

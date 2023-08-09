@@ -1,4 +1,4 @@
-import 'package:food_delivery_app/controllers/user_repo.dart';
+import 'package:food_delivery_app/data/repository/user_repo.dart';
 import 'package:food_delivery_app/models/user_model.dart';
 import 'package:get/get.dart';
 

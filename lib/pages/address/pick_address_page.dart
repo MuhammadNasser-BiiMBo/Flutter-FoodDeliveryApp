@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
+import 'package:food_delivery_app/pages/address/search_location_dialogue_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/custom_button.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../models/address_model.dart';
 import '../../widgets/small_text.dart';
 
 class PickAddressMap extends StatefulWidget {
@@ -70,6 +72,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                         Get.find<LocationController>()
                             .updatePosition(_cameraPosition, false);
                       },
+                      onMapCreated: (GoogleMapController mapController){
+                        _mapController = mapController;
+                      },
                     ),
                     Center(
                       child: !locationController.loading
@@ -86,33 +91,40 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       top: Dimensions.height45,
                       left: Dimensions.width20,
                       right: Dimensions.width20,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Dimensions.width10),
-                        height: Dimensions.height45,
-                        decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius10),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.location_on,
-                              size: 25,
-                              color: AppColors.yellowColor,
-                            ),
-                            Expanded(
-                              child: Text(
-                                locationController.pickPlacemark.name ?? '',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: Dimensions.fontSize16),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                      child: InkWell(
+                        onTap: (){
+                          Get.dialog(LocationSearchDialogue(mapController: _mapController));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.width10),
+                          height: Dimensions.height45,
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius10),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.location_on,
+                                size: 25,
+                                color: AppColors.yellowColor,
                               ),
-                            )
-                          ],
+                              Expanded(
+                                child: Text(
+                                  locationController.pickPlacemark.name ?? '',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: Dimensions.fontSize16),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(width: Dimensions.width10,),
+                              const Icon(Icons.search,color: AppColors.yellowColor,),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -125,15 +137,13 @@ class _PickAddressMapState extends State<PickAddressMap> {
                               child: CircularProgressIndicator(),
                             )
                           : CustomButton(
-                              buttonText: locationController.inZone?widget.fromAddress?'Pick Address':'Pick Location':'Service is not available in your area',
-                              onPressed: (locationController.buttonDisabled||locationController.loading) ? null : () {
+                              buttonText: locationController.inZone ? widget.fromAddress ? 'Pick Address' : 'Pick Location' : 'Service is not available in your area',
+                              onPressed: (locationController.buttonDisabled || locationController.loading) ? null : () {
                                       if (locationController.pickPosition.latitude != 0 && locationController.pickPlacemark.name != null) {
                                         if (widget.fromAddress) {
-                                          if (widget.googleMapController !=
-                                              null) {
+                                          if (widget.googleMapController != null) {
                                             print('object');
-                                            widget.googleMapController!
-                                                .moveCamera(
+                                            widget.googleMapController!.moveCamera(
                                               CameraUpdate.newCameraPosition(
                                                 CameraPosition(
                                                   target: LatLng(
@@ -145,12 +155,25 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                                 ),
                                               ),
                                             );
-                                            locationController
-                                                .setAddAddressData();
+                                            AddressModel addressModel = AddressModel(
+                                              addressType: locationController.addressTypeList[locationController.addressTypeIndex],
+                                              address: locationController.pickPlacemark.name,
+                                              latitude: locationController.pickPosition.latitude.toString(),
+                                              longitude: locationController.pickPosition.longitude.toString(),
+                                              contactPersonName: locationController.getUserAddress()!.contactPersonName,
+                                              contactPersonNumber: locationController.getUserAddress()!.contactPersonName,
+                                            );
+                                            print(locationController.pickPlacemark.name);
+                                            locationController.addAddress(addressModel).then((value) {
+                                              locationController.getUserAddress();
+                                            }).then((value) {
+                                              Get.toNamed(
+                                                  RouteHelper.getAddAddressPage());
+                                            });
+                                            locationController.setAddAddressData();
                                           }
-                                          // locationController.position = locationController.pickPosition;
-                                          Get.toNamed(
-                                              RouteHelper.getAddAddressPage());
+                                          // Get.toNamed(
+                                          //     RouteHelper.getAddAddressPage());
                                         }
                                       }
                                     },

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
@@ -12,7 +13,6 @@ import 'package:food_delivery_app/widgets/text_field_widget.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../widgets/app_icon.dart';
 
 class AddAddressPage extends StatefulWidget {
   const AddAddressPage({super.key});
@@ -23,7 +23,7 @@ class AddAddressPage extends StatefulWidget {
 
 class _AddAddressPageState extends State<AddAddressPage> {
   // <-----------------------Controllers--------------------------->
-  TextEditingController _addressController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _contactPersonNameController =
       TextEditingController();
   final TextEditingController _contactPersonNumberController =
@@ -62,7 +62,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
         Get.find<LocationController>()
             .saveUserAddress(Get.find<LocationController>().addressList.last);
       }
-      Get.find<LocationController>().getUserAddress();
+      // AddressModel addressModel = Get.find<LocationController>().getUserAddress()!;
       // to set the Camera position the current location
       _cameraPosition = CameraPosition(
         target: LatLng(
@@ -93,22 +93,19 @@ class _AddAddressPageState extends State<AddAddressPage> {
             _contactPersonNameController.text = userController.userModel!.name;
             _contactPersonNumberController.text =
                 userController.userModel!.phone;
-
             if (Get.find<LocationController>().addressList.isNotEmpty) {
               _addressController.text =
                   Get.find<LocationController>().getUserAddress().address;
-              print('done');
             }
           }
           return GetBuilder<LocationController>(
             builder: (locationController) {
-              print(_addressController.text);
               _addressController.text =
                   "${locationController.placemark.name ?? ''}"
                   "${locationController.placemark.locality ?? ''}"
                   "${locationController.placemark.postalCode ?? ''}"
                   "${locationController.placemark.country ?? ''}";
-              print('address is ${_addressController.text}');
+              // print(object);
               return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -132,13 +129,16 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         children: [
                           GoogleMap(
                             initialCameraPosition: CameraPosition(
-                              target: _initialPosition,
+                              target: locationController.getUserAddressFromLocalStorage()==''?_initialPosition:LatLng(
+                                  double.parse(locationController.getUserAddress().latitude) ,
+                                  double.parse(locationController.getUserAddress().longitude)
+                              ),
                               zoom: 17,
                             ),
                             zoomControlsEnabled: false,
                             compassEnabled: false,
                             indoorViewEnabled: true,
-                            mapToolbarEnabled: true,
+                            mapToolbarEnabled: false,
                             myLocationEnabled: true,
                             onCameraIdle: () {
                               locationController.updatePosition(
@@ -160,7 +160,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
                                 ),
                               );
                             },
-                          )
+                          ),
+                           Center(child:Image.asset('assets/images/pick_marker.png',width: Dimensions.width30,height: Dimensions.height30,) ,)
                         ],
                       ),
                     ),
@@ -287,14 +288,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 GestureDetector(
                   onTap: () {
                     AddressModel addressModel = AddressModel(
-                      addressType: locationController
-                          .addressTypeList[locationController.addressTypeIndex],
+                      addressType: locationController.addressTypeList[locationController.addressTypeIndex],
                       address: _addressController.text,
-                      latitude:
-                          locationController.position.latitude.toString() ?? '',
-                      longitude:
-                          locationController.position.longitude.toString() ??
-                              '',
+                      latitude: locationController.position.latitude.toString(),
+                      longitude: locationController.position.longitude.toString(),
                       contactPersonName: _contactPersonNameController.text,
                       contactPersonNumber: _contactPersonNumberController.text,
                     );

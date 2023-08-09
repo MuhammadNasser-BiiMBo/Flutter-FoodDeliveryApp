@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/controllers/auth_controller.dart';
+import 'package:food_delivery_app/controllers/location_controller.dart';
 import 'package:food_delivery_app/pages/auth/sign_up_page.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
@@ -8,6 +9,7 @@ import 'package:food_delivery_app/widgets/text_field_widget.dart';
 import 'package:get/get.dart';
 
 import '../../constants/dimensions.dart';
+import '../../controllers/user_controller.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
@@ -87,6 +89,7 @@ class SignInPage extends StatelessWidget {
                     phoneNumber: phoneController.text,
                     userPassword: passwordController.text,
                   );
+                  Get.find<UserController>().getUserInfo().then((value) => Get.find<LocationController>().getUserAddress());
                   print('log');
                 },
                 child: Container(

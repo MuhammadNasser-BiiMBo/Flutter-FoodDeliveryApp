@@ -10,6 +10,8 @@ import 'package:food_delivery_app/widgets/text_field_widget.dart';
 import 'package:get/get.dart';
 
 import '../../constants/dimensions.dart';
+import '../../controllers/location_controller.dart';
+import '../../controllers/user_controller.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -100,6 +102,8 @@ class SignUpPage extends StatelessWidget {
                             emailAddress: emailController.text,
                             userPassword: passwordController.text
                         );
+                        Get.find<UserController>().getUserInfo().then((value) => Get.find<LocationController>().getUserAddress());
+
                       },
                       child: Container(
                         width: Dimensions.screenWidth / 2,

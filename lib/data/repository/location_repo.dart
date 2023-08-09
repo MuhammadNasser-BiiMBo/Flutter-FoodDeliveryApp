@@ -15,6 +15,9 @@ class LocationRepo {
     return await apiClient.getData('${AppConstants.GEOCODE_URL}''?lat=${latLng.latitude}&lng=${latLng.longitude}');
   }
 
+  Future<bool> setFirstLoginUserAddress(){
+    return sharedPreferences.setString(AppConstants.USER_ADDRESS, '');
+  }
   String getUserAddress(){
     return sharedPreferences.getString(AppConstants.USER_ADDRESS)??'';
   }
@@ -36,4 +39,13 @@ class LocationRepo {
     return await apiClient.getData('${AppConstants.ZONE_URL}?lat=$lat&lng=$lng');
     
   }
+
+  Future<Response> searchLocation(String text)async{
+    return await apiClient.getData('${AppConstants.SEARCH_LOCATION_URL}?search_text=$text');
+  }
+  
+  Future<Response> setLocation(String placeId) async {
+    return await apiClient.getData("${AppConstants.PLACE_DETAILS_URL}?placeid=$placeId");
+  }
+  
 }

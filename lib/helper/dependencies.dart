@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/recommended_product_controller.dart';
 import '../controllers/user_controller.dart';
-import '../controllers/user_repo.dart';
+import '../data/repository/user_repo.dart';
 import '../data/repository/recommended_product_repo.dart';
 
 Future<void> init()async{

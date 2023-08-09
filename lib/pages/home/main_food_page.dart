@@ -2,9 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/dimensions.dart';
+import '../../controllers/auth_controller.dart';
+import '../../controllers/location_controller.dart';
+import '../../controllers/user_controller.dart';
 import 'food_page_body.dart';
 
 
@@ -20,6 +24,9 @@ class _MainFoodPageState extends State<MainFoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    if(Get.find<AuthController>().userLoggedIn()){
+      Get.find<UserController>().getUserInfo().then((value) => Get.find<LocationController>().getUserAddress());
+    }
     print('current height is :${MediaQuery.of(context).size.height}');
     print('current width is :${MediaQuery.of(context).size.width}');
     return  Scaffold(
