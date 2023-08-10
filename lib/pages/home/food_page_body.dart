@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
@@ -38,6 +39,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       });
     });
   }
+
   @override
   void dispose() {
     pageController.dispose();
@@ -111,6 +113,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ],
           ),
         ),
+        SizedBox(
+          height: Dimensions.height10,
+        ),
         GetBuilder<RecommendedProductController>(
             builder: (recommendedProducts) {
           if (recommendedProducts.isLoaded) {
@@ -120,7 +125,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               itemCount: recommendedProducts.recommendedProductList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Get.toNamed(RouteHelper.getRecommendedFood(index));
                   },
                   child: Container(
@@ -133,16 +138,19 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         //Image Section
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.radius15),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(AppConstants.BASEURL +
-                                      AppConstants.UPLOAD_URL +
-                                      recommendedProducts
-                                          .recommendedProductList[index].img))),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius15),
+                          ),
                           height: Dimensions.listViewImgSize,
                           width: Dimensions.listViewImgSize,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: AppConstants.BASEURL +
+                                AppConstants.UPLOAD_URL +
+                                recommendedProducts
+                                    .recommendedProductList[index].img,
+                          ),
                         ),
                         //Text Container
                         Expanded(
@@ -152,7 +160,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                               color: Colors.white,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(Dimensions.radius20),
-                                bottomRight: Radius.circular(Dimensions.radius20),
+                                bottomRight:
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               boxShadow: const [
                                 BoxShadow(
@@ -163,17 +172,19 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.only(
-                                left: Dimensions.width10/2,
-                                right: Dimensions.width10/2,
+                                left: Dimensions.width10 / 2,
+                                right: Dimensions.width10 / 2,
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   BigText(
                                       text: recommendedProducts
                                           .recommendedProductList[index].name),
-                                  SmallText(text: 'With chinese characteristics'),
+                                  SmallText(
+                                      text: 'With chinese characteristics'),
                                   const Row(
                                     children: [
                                       Expanded(
@@ -250,7 +261,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Transform(
       transform: matrix,
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           Get.toNamed(RouteHelper.getPopularFood(index));
         },
         child: Stack(
@@ -260,13 +271,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: Dimensions.width10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius30),
-                  color: AppColors.mainColor,
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(AppConstants.BASEURL +
-                          AppConstants.UPLOAD_URL +
-                          popularProduct.img!))),
+                borderRadius: BorderRadius.circular(Dimensions.radius30),
+                color: AppColors.mainColor,
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child:  CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: AppConstants.BASEURL +
+                    AppConstants.UPLOAD_URL +
+                    popularProduct.img!,
+              ),
             ),
             Align(
               alignment: Alignment.bottomCenter,

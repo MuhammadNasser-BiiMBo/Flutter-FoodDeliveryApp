@@ -11,8 +11,6 @@ import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/profile_widget.dart';
 import 'package:get/get.dart';
 
-import '../../constants/constants.dart';
-
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
 

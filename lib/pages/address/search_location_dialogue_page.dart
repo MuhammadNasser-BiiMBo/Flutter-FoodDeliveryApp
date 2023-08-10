@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
 import 'package:get/get.dart';

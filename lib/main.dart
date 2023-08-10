@@ -5,7 +5,6 @@ import 'package:food_delivery_app/constants/constants.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
-import 'package:food_delivery_app/controllers/user_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'controllers/location_controller.dart';
