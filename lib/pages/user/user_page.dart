@@ -19,6 +19,7 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.mainColor,
         centerTitle: true,
         title: BigText(

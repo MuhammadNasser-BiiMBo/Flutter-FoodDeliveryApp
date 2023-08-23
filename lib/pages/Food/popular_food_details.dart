@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/constants.dart';
@@ -29,13 +30,14 @@ class PopularFoodDetails extends StatelessWidget {
           Positioned(
               left: 0,
               right: 0,
-              child: Container(
+              child: SizedBox(
                 width: double.maxFinite,
                 height: Dimensions.popularFoodImgSize,
-                decoration:  BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(AppConstants.BASEURL+AppConstants.UPLOAD_URL+product.img!)),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: AppConstants.BASE_URL +
+                      AppConstants.UPLOAD_URL +
+                      product.img!,
                 ),
               )),
           // Icon Widgets

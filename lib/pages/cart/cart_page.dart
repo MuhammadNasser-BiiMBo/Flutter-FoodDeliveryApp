@@ -1,12 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/base/show_custom_snackbar.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/constants.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/auth_controller.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
+import 'package:food_delivery_app/controllers/payment_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
+import 'package:food_delivery_app/controllers/user_controller.dart';
 import 'package:food_delivery_app/models/cart_model.dart';
 import 'package:food_delivery_app/pages/cart/cart_history_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
@@ -116,18 +120,19 @@ class CartPage extends StatelessWidget {
                                       }
                                     },
                                     child: Container(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
                                       height: Dimensions.height20 * 5,
                                       width: Dimensions.width20 * 5,
                                       decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  AppConstants.BASEURL +
-                                                      AppConstants.UPLOAD_URL +
-                                                      cartItem.img!),
-                                              fit: BoxFit.cover),
                                           borderRadius: BorderRadius.circular(
                                               Dimensions.radius20),
-                                          color: AppColors.mainColor),
+                                          color: AppColors.mainColor,),
+                                      child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: AppConstants.BASE_URL +
+                                          AppConstants.UPLOAD_URL +
+                                          cartItem.img!,
+                                    ),
                                     ),
                                   ),
                                   // the data of the item
@@ -252,16 +257,48 @@ class CartPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          if(Get.find<AuthController>().userLoggedIn()){
-                            if(Get.find<LocationController>().addressList.isEmpty){
+                          if (Get.find<AuthController>().userLoggedIn()) {
+                            if (Get.find<LocationController>()
+                                .addressList
+                                .isEmpty) {
                               Get.toNamed(RouteHelper.getAddAddressPage());
-                            }else{
-                              Get.offNamed(RouteHelper.getInitial());
+                            } else {
+                              // var location = Get.find<LocationController>()
+                              //     .getUserAddress();
+                              // var cart = Get.find<CartController>().getItems;
+                              var user = Get.find<UserController>().userModel!;
+                              // PlaceOrderModel placeOrder = PlaceOrderModel(
+                              //   cart: cart,
+                              //   orderAmount: double.parse("${cartController.totalAmount}"),
+                              //   distance: 10.0,
+                              //   scheduleAt: 'scheduleAt',
+                              //   orderNote: 'note about the food',
+                              //   address: location.address,
+                              //   latitude: location.latitude,
+                              //   longitude: location.longitude,
+                              //   contactPersonName:user.name ,
+                              //   contactPersonNumber: user.phone,
+                              // );
+                              // print(placeOrder.toJson().toString());
+                              // print(Get.find<AuthController>().authRepo.getUserToken());
+                              // Get.find<OrderController>().placeOrder(placeOrder,_callback);
+                              Get.find<PaymentController>()
+                                  .getAuthToken()
+                                  .then((value) {
+                                Get.find<PaymentController>()
+                                    .getOrderRegistrationId(
+                                  name: user.name,
+                                  price: "${cartController.totalAmount * 100}",
+                                  email: user.email,
+                                  phone: user.phone,
+                                );
+                              }).then((value) {
+                                  Get.toNamed(RouteHelper.getPaymentMethods());
+                              });
                             }
-                          }else{
+                          } else {
                             Get.toNamed(RouteHelper.getLoginPage());
                           }
-
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -283,4 +320,13 @@ class CartPage extends StatelessWidget {
               : const SizedBox());
     });
   }
+
+  // void _callback(bool isSuccess, String message, String orderID) {
+  //   if (isSuccess) {
+  //     Get.offNamed(RouteHelper.getPaymentPage(
+  //         orderID, Get.find<UserController>().userModel!.id));
+  //   } else {
+  //     showCustomSnackBar(message);
+  //   }
+  // }
 }

@@ -141,7 +141,7 @@ class LocationController extends GetxController implements GetxService {
     Response response = await locationRepo.getAddressFromGeocode(latLng);
     if (response.body['status'] == 'OK') {
       address = response.body['results'][0]['formatted_address'].toString();
-      // print('Address is $_address');
+      print('Address is $address');
     } else {
       print('There\'s an error getting google map api ');
     }

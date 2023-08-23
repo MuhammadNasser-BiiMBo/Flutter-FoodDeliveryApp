@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/constants.dart';
@@ -108,9 +109,13 @@ class CartHistoryPage extends StatelessWidget {
                                       margin: EdgeInsets.only(right: Dimensions.width10),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(Dimensions.radius10),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(AppConstants.BASEURL+AppConstants.UPLOAD_URL + cartHistoryList[listCounter - 1].img!))),
+                                      ),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: AppConstants.BASE_URL +
+                                              AppConstants.UPLOAD_URL +
+                                              cartHistoryList[listCounter - 1].img!,
+                                        )
                                     ):const SizedBox();
                                   }),
                                 ),

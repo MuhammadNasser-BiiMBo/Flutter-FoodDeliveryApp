@@ -2,15 +2,17 @@ import 'package:food_delivery_app/constants/constants.dart';
 import 'package:food_delivery_app/controllers/auth_controller.dart';
 import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
+import 'package:food_delivery_app/controllers/payment_controller.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/data/api/api_client.dart';
+import 'package:food_delivery_app/data/api/payment_client.dart';
 import 'package:food_delivery_app/data/repository/auth_repo.dart';
 import 'package:food_delivery_app/data/repository/cart_repo.dart';
 import 'package:food_delivery_app/data/repository/location_repo.dart';
+import 'package:food_delivery_app/data/repository/payment_repo.dart';
 import 'package:food_delivery_app/data/repository/popular_product_repo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../controllers/recommended_product_controller.dart';
 import '../controllers/user_controller.dart';
 import '../data/repository/user_repo.dart';
@@ -21,7 +23,8 @@ Future<void> init()async{
 
   Get.lazyPut(() => sharedPreferences);
   //apiClient
-  Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.BASEURL,sharedPreferences:Get.find()));
+  Get.lazyPut(() => ApiClient(appBaseUrl: AppConstants.BASE_URL,sharedPreferences:Get.find()));
+  Get.lazyPut(() => PaymentClient(appBaseUrl: AppConstants.PAYMENT_BASE_URL));
   //repository getting the ApiClient with the name apiClient
   Get.lazyPut(() => AuthRepo(apiClient: Get.find(),sharedPreferences: sharedPreferences));
   Get.lazyPut(() => UserRepo(apiClient: Get.find()));
@@ -29,6 +32,8 @@ Future<void> init()async{
   Get.lazyPut(() => RecommendedProductRepo(apiClient:Get.find()));
   Get.lazyPut(() => CartRepo(sharedPreferences:Get.find()));
   Get.lazyPut(() => LocationRepo(sharedPreferences:Get.find(), apiClient: Get.find()));
+  Get.lazyPut(() => PaymentRepo(paymentClient: Get.find()));
+
   //controllers
   Get.lazyPut(() => AuthController(authRepo:Get.find()));
   Get.lazyPut(() => UserController(userRepo:Get.find()));
@@ -36,5 +41,6 @@ Future<void> init()async{
   Get.lazyPut(() => RecommendedProductController(recommendedProductRepo:Get.find()));
   Get.lazyPut(() => CartController(cartRepo:Get.find()));
   Get.lazyPut(() => LocationController(locationRepo:Get.find()));
+  Get.lazyPut(() => PaymentController(paymentRepo:Get.find()));
 
 }

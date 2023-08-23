@@ -146,7 +146,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
-                            imageUrl: AppConstants.BASEURL +
+                            imageUrl: AppConstants.BASE_URL +
                                 AppConstants.UPLOAD_URL +
                                 recommendedProducts
                                     .recommendedProductList[index].img,
@@ -277,7 +277,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child:  CachedNetworkImage(
                 fit: BoxFit.cover,
-                imageUrl: AppConstants.BASEURL +
+                imageUrl: AppConstants.BASE_URL +
                     AppConstants.UPLOAD_URL +
                     popularProduct.img!,
               ),

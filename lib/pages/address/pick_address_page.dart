@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constants/colors.dart';
 import 'package:food_delivery_app/constants/dimensions.dart';
 import 'package:food_delivery_app/controllers/location_controller.dart';
+import 'package:food_delivery_app/controllers/user_controller.dart';
 import 'package:food_delivery_app/pages/address/search_location_dialogue_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -160,8 +161,8 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                               address: locationController.pickPlacemark.name,
                                               latitude: locationController.pickPosition.latitude.toString(),
                                               longitude: locationController.pickPosition.longitude.toString(),
-                                              contactPersonName: locationController.getUserAddress()!.contactPersonName,
-                                              contactPersonNumber: locationController.getUserAddress()!.contactPersonName,
+                                              contactPersonName: Get.find<UserController>().userModel!.name,
+                                              contactPersonNumber:Get.find<UserController>().userModel!.phone,
                                             );
                                             print(locationController.pickPlacemark.name);
                                             locationController.addAddress(addressModel).then((value) {
