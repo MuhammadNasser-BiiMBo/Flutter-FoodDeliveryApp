@@ -114,7 +114,7 @@ class PopularFoodDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FoodDataColumn(text: product.name!, size: 26),
+                  FoodDataColumn(text: product.name!, size: 26, index: pageId,),
                   SizedBox(
                     height: Dimensions.height20,
                   ),

@@ -149,7 +149,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                             imageUrl: AppConstants.BASE_URL +
                                 AppConstants.UPLOAD_URL +
                                 recommendedProducts
-                                    .recommendedProductList[index].img,
+                                    .recommendedProductList[index].img!,
                           ),
                         ),
                         //Text Container
@@ -181,29 +181,45 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   BigText(
-                                      text: recommendedProducts
-                                          .recommendedProductList[index].name),
+                                    text: recommendedProducts
+                                        .recommendedProductList[index].name,
+                                  ),
                                   SmallText(
-                                      text: 'With chinese characteristics'),
-                                  const Row(
+                                    text: recommendedProducts
+                                        .recommendedProductList[index]
+                                        .description,
+                                    isExpandable: false,
+                                  ),
+                                  Row(
                                     children: [
                                       Expanded(
                                         child: IconAndText(
-                                            icon: Icons.circle,
-                                            text: 'Normal',
-                                            iconColor: AppColors.iconColor1),
-                                      ),
-                                      Expanded(
-                                        child: IconAndText(
-                                            icon: Icons.location_pin,
-                                            text: '1.7km',
+                                            icon:
+                                                Icons.monetization_on_outlined,
+                                            text:
+                                                ' ${Get.find<RecommendedProductController>().recommendedProductList[index].price} EGP',
                                             iconColor: AppColors.mainColor),
                                       ),
-                                      Expanded(
-                                        child: IconAndText(
-                                            icon: Icons.access_time_outlined,
-                                            text: '32min',
-                                            iconColor: AppColors.iconColor2),
+                                      Wrap(
+                                        children: List.generate(
+                                            Get.find<
+                                                    RecommendedProductController>()
+                                                .recommendedProductList[index]
+                                                .stars,
+                                            (index) => Icon(
+                                                  Icons.star,
+                                                  color: AppColors.mainColor,
+                                                  size: Dimensions.height15,
+                                                )),
+                                      ),
+                                      SizedBox(
+                                        width: Dimensions.width10 / 2,
+                                      ),
+                                      SmallText(
+                                          text:
+                                              '${Get.find<RecommendedProductController>().recommendedProductList[index].stars} stars'),
+                                      SizedBox(
+                                        width: Dimensions.width20,
                                       ),
                                     ],
                                   ),
@@ -275,7 +291,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 color: AppColors.mainColor,
               ),
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              child:  CachedNetworkImage(
+              child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: AppConstants.BASE_URL +
                     AppConstants.UPLOAD_URL +
@@ -305,7 +321,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       top: Dimensions.height15,
                       left: Dimensions.width20,
                       right: Dimensions.width10),
-                  child: FoodDataColumn(text: popularProduct.name!),
+                  child:
+                      FoodDataColumn(text: popularProduct.name!, index: index),
                 ),
               ),
             ),

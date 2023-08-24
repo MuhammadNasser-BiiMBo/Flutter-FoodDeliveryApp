@@ -6,6 +6,7 @@ import '../../constants/colors.dart';
 import '../../constants/dimensions.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/location_controller.dart';
+import '../../controllers/popular_product_controller.dart';
 import '../../controllers/user_controller.dart';
 import '../../routes/route_helper.dart';
 import '../../widgets/app_icon.dart';
@@ -28,11 +29,11 @@ class _MainFoodPageState extends State<MainFoodPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Food App',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 28,
+            fontSize: Dimensions.fontSize26,
           ),
         ),
         centerTitle: true,
@@ -40,19 +41,44 @@ class _MainFoodPageState extends State<MainFoodPage> {
         backgroundColor: AppColors.mainColor,
         shadowColor: Colors.white,
         actions: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/3),
-            child: InkWell(
-              onTap: () {
-                Get.toNamed(RouteHelper.getCartPage());
-              },
-              child: const AppIcon(
-                icon: Icons.shopping_cart_outlined,
-                iconColor: AppColors.mainColor,
-              ),
-            ),
+          GetBuilder<PopularProductController>(
+              builder: (popularProduct){
+                return Padding(
+                  padding: EdgeInsets.only(top: Dimensions.height10/2,right: Dimensions.width10),
+                  child: GestureDetector(
+                    onTap: () {
+                      if(popularProduct.totalItems>0) {
+                        Get.toNamed(RouteHelper.getCartPage());
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        AppIcon(
+                          icon: Icons.shopping_cart_outlined,
+                          iconSize: Dimensions.iconSize20,
+                        ),
+                        //for the totalItems in the cart if exist
+                        if(popularProduct.totalItems>0)
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            child: Container(
+                              width: Dimensions.width20,
+                              height: Dimensions.height20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                                color: AppColors.mainColor,
+                                border: Border.all(color: Colors.white,width: 1)
+                              ),
+                              child: Center(child: BigText(text: popularProduct.totalItems.toString(),color: Colors.black,size: 12)),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                );
+              }
           ),
-          SizedBox(width: Dimensions.width10,)
         ],
       ),
       body: Column(

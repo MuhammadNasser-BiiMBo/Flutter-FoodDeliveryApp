@@ -5,9 +5,6 @@ class AppConstants{
 
   // End points
   static const String BASE_URL = 'http://mvs.bslmeiyu.com';
-  // Maps api key => AIzaSyBnDB0HLyjsX3Pvn3BqkEj9fG-XPGcflpw
-  // static const String BASE_URL = 'http://127.0.0.1:8000';
-  // static const String BASE_URL = 'http://10.0.2.2:8000';
   static const String POPULAR_PRODUCT_URL = "/api/v1/products/popular";
   static const String RECOMMENDED_PRODUCT_URL = "/api/v1/products/recommended";
   static const String UPLOAD_URL = "/uploads/";
