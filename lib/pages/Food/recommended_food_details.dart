@@ -66,11 +66,12 @@ class RecommendedFoodDetails extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.circular(Dimensions.radius20),
                                 color: AppColors.mainColor,
+                                border: Border.all(color: Colors.white,width: 1),
                               ),
                               child: Center(
                                   child: BigText(
                                       text: controller.totalItems.toString(),
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       size: 12)),
                             ),
                           )

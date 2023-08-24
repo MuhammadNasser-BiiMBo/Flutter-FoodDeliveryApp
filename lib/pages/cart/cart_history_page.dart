@@ -50,7 +50,7 @@ class CartHistoryPage extends StatelessWidget {
               padding: EdgeInsets.only(top: Dimensions.height10/2,right: Dimensions.width10),
               child: GestureDetector(
                 onTap: () {
-                  if (popularProduct.totalItems > 0) {
+                  if (Get.find<CartController>().totalItems > 0) {
                     Get.toNamed(RouteHelper.getCartPage());
                   }
                 },
@@ -61,7 +61,7 @@ class CartHistoryPage extends StatelessWidget {
                       iconSize: Dimensions.iconSize20,
                     ),
                     //for the totalItems in the cart if exist
-                    if (popularProduct.totalItems > 0)
+                    if (Get.find<CartController>().totalItems > 0)
                       Positioned(
                         left: 0,
                         top: 0,
@@ -75,7 +75,7 @@ class CartHistoryPage extends StatelessWidget {
                               border: Border.all(color: Colors.white, width: 1)),
                           child: Center(
                               child: BigText(
-                                  text: popularProduct.totalItems.toString(),
+                                  text: Get.find<CartController>().totalItems.toString(),
                                   color: Colors.black,
                                   size: 12)),
                         ),

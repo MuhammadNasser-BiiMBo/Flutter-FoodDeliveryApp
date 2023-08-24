@@ -82,8 +82,9 @@ class PopularFoodDetails extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(Dimensions.radius20),
                                     color: AppColors.mainColor,
+                                    border: Border.all(color: Colors.white,width: 1),
                                   ),
-                                  child: Center(child: BigText(text: popularProduct.totalItems.toString(),color: Colors.white,size: 12)),
+                                  child: Center(child: BigText(text: popularProduct.totalItems.toString(),color: Colors.black,size: 12)),
                                 ),
                               )
                           ],

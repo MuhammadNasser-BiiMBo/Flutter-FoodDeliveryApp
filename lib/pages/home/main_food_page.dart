@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/cart_controller.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
@@ -47,7 +48,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   padding: EdgeInsets.only(top: Dimensions.height10/2,right: Dimensions.width10),
                   child: GestureDetector(
                     onTap: () {
-                      if(popularProduct.totalItems>0) {
+                      if(Get.find<CartController>().totalItems>0) {
                         Get.toNamed(RouteHelper.getCartPage());
                       }
                     },
@@ -58,7 +59,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                           iconSize: Dimensions.iconSize20,
                         ),
                         //for the totalItems in the cart if exist
-                        if(popularProduct.totalItems>0)
+                        if(Get.find<CartController>().totalItems>0)
                           Positioned(
                             left: 0,
                             top: 0,
@@ -70,7 +71,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                                 color: AppColors.mainColor,
                                 border: Border.all(color: Colors.white,width: 1)
                               ),
-                              child: Center(child: BigText(text: popularProduct.totalItems.toString(),color: Colors.black,size: 12)),
+                              child: Center(child: BigText(text: Get.find<CartController>().totalItems.toString(),color: Colors.black,size: 12)),
                             ),
                           )
                       ],
