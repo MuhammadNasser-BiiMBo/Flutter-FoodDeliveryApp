@@ -57,7 +57,7 @@ class CartHistoryPage extends StatelessWidget {
                   icon: Icons.shopping_cart_outlined,
                   iconColor: AppColors.mainColor,
                 ),
-              )
+              ),
             ],
           ),
         ),

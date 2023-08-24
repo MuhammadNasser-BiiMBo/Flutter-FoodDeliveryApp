@@ -46,25 +46,12 @@ class CartPage extends StatelessWidget {
                         Get.back();
                       },
                     ),
-                    SizedBox(
-                      width: Dimensions.width20 * 3,
-                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(RouteHelper.getInitial());
                       },
                       child: const AppIcon(
                         icon: Icons.home_outlined,
-                        iconColor: Colors.white,
-                        backgroundColor: AppColors.mainColor,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(const CartHistoryPage());
-                      },
-                      child: const AppIcon(
-                        icon: Icons.shopping_cart_outlined,
                         iconColor: Colors.white,
                         backgroundColor: AppColors.mainColor,
                       ),
@@ -263,25 +250,10 @@ class CartPage extends StatelessWidget {
                                 .isEmpty) {
                               Get.toNamed(RouteHelper.getAddAddressPage());
                             } else {
-                              // var location = Get.find<LocationController>()
-                              //     .getUserAddress();
+                              var location = Get.find<LocationController>()
+                                  .placemark;
                               // var cart = Get.find<CartController>().getItems;
                               var user = Get.find<UserController>().userModel!;
-                              // PlaceOrderModel placeOrder = PlaceOrderModel(
-                              //   cart: cart,
-                              //   orderAmount: double.parse("${cartController.totalAmount}"),
-                              //   distance: 10.0,
-                              //   scheduleAt: 'scheduleAt',
-                              //   orderNote: 'note about the food',
-                              //   address: location.address,
-                              //   latitude: location.latitude,
-                              //   longitude: location.longitude,
-                              //   contactPersonName:user.name ,
-                              //   contactPersonNumber: user.phone,
-                              // );
-                              // print(placeOrder.toJson().toString());
-                              // print(Get.find<AuthController>().authRepo.getUserToken());
-                              // Get.find<OrderController>().placeOrder(placeOrder,_callback);
                               Get.find<PaymentController>()
                                   .getAuthToken()
                                   .then((value) {
@@ -291,6 +263,7 @@ class CartPage extends StatelessWidget {
                                   price: "${cartController.totalAmount * 100}",
                                   email: user.email,
                                   phone: user.phone,
+                                  placemark: location,
                                 );
                               }).then((value) {
                                   Get.toNamed(RouteHelper.getPaymentMethods());

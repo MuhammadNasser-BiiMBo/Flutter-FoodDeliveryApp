@@ -7,6 +7,8 @@ import '../../constants/dimensions.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/location_controller.dart';
 import '../../controllers/user_controller.dart';
+import '../../routes/route_helper.dart';
+import '../../widgets/app_icon.dart';
 import 'food_page_body.dart';
 
 class MainFoodPage extends StatefulWidget {
@@ -17,59 +19,50 @@ class MainFoodPage extends StatefulWidget {
 }
 
 class _MainFoodPageState extends State<MainFoodPage> {
-
   @override
   Widget build(BuildContext context) {
-    if(Get.find<AuthController>().userLoggedIn()){
-      Get.find<UserController>().getUserInfo().then((value) => Get.find<LocationController>().getUserAddress());
+    if (Get.find<AuthController>().userLoggedIn()) {
+      Get.find<UserController>()
+          .getUserInfo()
+          .then((value) => Get.find<LocationController>().getUserAddress());
     }
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title:Container(
-          padding:  EdgeInsets.symmetric(horizontal: Dimensions.width10),
-          margin:  EdgeInsets.only(top: Dimensions.height20,bottom: Dimensions.height15),
-          child: SizedBox(
-            child:  Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    BigText(text: 'Bangladesh',color: AppColors.mainColor,),
-                    Row(
-                      children: [
-                        SmallText(text: 'Narsindgi',color: Colors.black,),
-                        const Icon(
-                          Icons.arrow_drop_down_rounded,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimensions.height15),
-                    color: AppColors.mainColor,
-                  ),
-                  width: Dimensions.width45,
-                  height: Dimensions.height45,
-                  child:  Icon(Icons.search,color: Colors.white,size: Dimensions.iconSize24,),
-                )
-              ],
-            ),
+        title: const Text(
+          'Food App',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 28,
           ),
         ),
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.mainColor,
         shadowColor: Colors.white,
+        actions: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.width10/2,vertical: Dimensions.height10/3),
+            child: InkWell(
+              onTap: () {
+                Get.toNamed(RouteHelper.getCartPage());
+              },
+              child: const AppIcon(
+                icon: Icons.shopping_cart_outlined,
+                iconColor: AppColors.mainColor,
+              ),
+            ),
+          ),
+          SizedBox(width: Dimensions.width10,)
+        ],
       ),
       body: Column(
         children: [
-          SizedBox(height: Dimensions.height20,),
+          SizedBox(
+            height: Dimensions.height20,
+          ),
           const Expanded(
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: FoodPageBody()
-            ),
+                physics: BouncingScrollPhysics(), child: FoodPageBody()),
           ),
         ],
       ),

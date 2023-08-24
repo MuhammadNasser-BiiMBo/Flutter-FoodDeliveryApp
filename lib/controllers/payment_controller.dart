@@ -1,9 +1,7 @@
-
 import 'package:food_delivery_app/constants/constants.dart';
 import 'package:food_delivery_app/data/repository/payment_repo.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-
-import '../models/cart_model.dart';
 
 class PaymentController extends GetxController implements GetxService{
   final PaymentRepo paymentRepo;
@@ -16,7 +14,6 @@ class PaymentController extends GetxController implements GetxService{
   Future <void> getAuthToken()async{
     Response response = await paymentRepo.getAuthToken();
     if(response.statusCode==201){
-      // print(response.body['token']);
       AppConstants.paymentFirstToken = response.body['token'];
     }else{
       print('status code is not 201 for auth token');
@@ -28,6 +25,7 @@ class PaymentController extends GetxController implements GetxService{
     required String price,
     required String email,
     required String phone,
+    required Placemark placemark,
     // required List<CartModel> items
   })async{
     AppConstants.paymentOrderId = '';
@@ -41,7 +39,7 @@ class PaymentController extends GetxController implements GetxService{
     Response response = await paymentRepo.getOrderRegistrationId(data);
     if(response.statusCode ==201){
       AppConstants.paymentOrderId = response.body["id"].toString();
-      getPaymentRequest(name: name, price: price, email: email, phone: phone);
+      getPaymentRequest(name: name, price: price, email: email, phone: phone,placemark: placemark);
     }else{
       print('status code is not 201 order id');
     }
@@ -53,6 +51,7 @@ class PaymentController extends GetxController implements GetxService{
     required String price,
     required String email,
     required String phone,
+    required Placemark placemark,
     // required List<CartModel> items
   })async{
     AppConstants.finalToken = '';
@@ -84,7 +83,6 @@ class PaymentController extends GetxController implements GetxService{
     Response response = await paymentRepo.getPaymentRequest(data);
     if(response.statusCode ==201){
       AppConstants.finalToken = response.body["token"];
-      print("final token  ${AppConstants.finalToken}");
     }else{
       print('status code is not 201 payment request');
     }
@@ -99,15 +97,12 @@ class PaymentController extends GetxController implements GetxService{
       },
       "payment_token": AppConstants.finalToken
     }
-
     );
     if(response.statusCode ==200){
       AppConstants.refCode = response.body['id'].toString();
-      print('RefCode');
       _isSuccess = true;
     }else{
       print('status code is not 200 refCode');
-      print('ref status code is ${response.statusCode} ');
     }
   }
 

@@ -20,7 +20,6 @@ class CartRepo{
       cart.add(jsonEncode(element));
     }
     sharedPreferences.setStringList(AppConstants.CART_LIST, cart);
-    print(sharedPreferences.getStringList(AppConstants.CART_LIST));
     getCartList();
   }
 
@@ -43,13 +42,11 @@ class CartRepo{
       cartHistory = sharedPreferences.getStringList(AppConstants.CART_HISTORY_LIST)!;
     }
     for(int i = 0; i<cart.length;i++){
-      print('$i History : ${cart[i]}');
       cartHistory.add(cart[i]);
     }
     // to remove the contents of the cart (sharedPreferences) as it's added to the carHistory list.
     removeCart();
     sharedPreferences.setStringList(AppConstants.CART_HISTORY_LIST, cartHistory);
-    print(getCartHistoryList().length);
   }
 
   //get the list of the history

@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
   // navigation pages
   List <Widget> pages =[
     const MainFoodPage(),
-    Center(child: BigText(text: 'History'),),
     const CartHistoryPage(),
     const UserPage(),
 
@@ -69,12 +68,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.access_time_outlined),
-              label: 'History',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              label: 'Cart',
+              icon: Icon(Icons.history),
+              label: 'Cart History',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

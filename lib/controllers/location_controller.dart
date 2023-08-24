@@ -118,7 +118,7 @@ class LocationController extends GetxController implements GetxService {
           String address = await getAddressFromGeocode(
               LatLng(position.target.latitude, position.target.longitude));
           fromAddress
-              ? _placemark = Placemark(name: address)
+              ? _placemark = Placemark(name: address,)
               : _pickPlacemark = Placemark(name: address);
         }else{
           _changeAddress = true;

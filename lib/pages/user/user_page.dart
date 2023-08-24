@@ -117,16 +117,6 @@ class UserPage extends StatelessWidget {
                             SizedBox(
                               height: Dimensions.height20,
                             ),
-                            // message
-                            const ProfileWidget(
-                              icon: Icons.message,
-                              backgroundColor: Colors.redAccent,
-                              text: 'Messages',
-                              iconColor: Colors.white,
-                            ),
-                            SizedBox(
-                              height: Dimensions.height20,
-                            ),
                             // Logout
                             GestureDetector(
                               onTap: () {
